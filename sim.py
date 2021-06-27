@@ -2,6 +2,7 @@
 
 import random
 import numpy as np
+from statistics import median
 
 def getrandsubset(n, k):
     return np.random.permutation(range(1, n+1))[:k] # TODO: https://en.wikipedia.org/wiki/Reservoir_sampling
@@ -28,15 +29,21 @@ def run_many(n, k, algA, algB, iters):
         if run_one(n, k, algA, algB):
             s += 1
         t += 1
-    print("Successes/Trials = {0}/{1} ≈ {2}".format(s, t, float(s)/float(t)))
+    print("successes/trials = {0}/{1} ≈ {2}".format(s, t, float(s)/float(t)))
     return float(s)/float(t)
 
+algMax = max
 algMin = min
+algMedian = median
 
 def main():
     random.seed(0xdeadbeef)
-    print("running minimum algorithm")
-    run_many(5, 2, algMin, algMin, 1000000)
+    print("running minimum algorithm on both")
+    run_many(10, 3, algMin, algMin, 200000)
+    print("running median algorithm on both")
+    run_many(10, 3, algMedian, algMedian, 200000)
+    print("running min on one, and max on the other")
+    run_many(10, 3, algMax, algMin, 200000)
 
 if __name__=='__main__':
     main()
