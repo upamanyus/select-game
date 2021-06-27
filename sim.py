@@ -7,6 +7,9 @@ from statistics import median
 def getrandsubset(n, k):
     return np.random.permutation(range(1, n+1))[:k] # TODO: https://en.wikipedia.org/wiki/Reservoir_sampling
 
+def getrandsubset(n, k):
+    return np.random.permutation(range(1, n+1))[:k] # TODO: https://en.wikipedia.org/wiki/Reservoir_sampling
+
 def run_one(n, k, algA, algB):
     """
     Picks two random subsets of size k from {1...n}. Uses algA and algB to
@@ -38,6 +41,7 @@ algMedian = median
 
 def main():
     random.seed(0xdeadbeef)
+    np.random.seed(0xdeafbeef)
     print("running minimum algorithm on both")
     run_many(10, 3, algMin, algMin, 200000)
     print("running median algorithm on both")
